@@ -1,7 +1,13 @@
 defmodule Input do
-  defmacro path do
+  defmacro path(suffix \\ ".txt") do
     quote do
-      Path.join([File.cwd!(), "input", Path.basename(__ENV__.file, "_test.exs") <> ".txt"])
+      Path.join([File.cwd!(), "input", Path.basename(__ENV__.file, "_test.exs") <> unquote(suffix)])
+    end
+  end
+
+  defmacro example() do
+    quote do
+      Input.path("_example.txt")
     end
   end
 

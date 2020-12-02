@@ -13,7 +13,7 @@ defmodule Day01Test do
   end
 
   test "day01 example" do
-    f = "input/day_01_example.txt"
+    f = Input.example()
     assert Day01.part1(f) == 514_579
   end
 
