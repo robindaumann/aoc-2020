@@ -26,5 +26,3 @@ aoc2020-*.tar
 # Temporary files for e.g. tests
 /tmp
 
-# Text inputs for the puzzles
-/input/
