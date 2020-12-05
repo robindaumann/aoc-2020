@@ -60,7 +60,7 @@ defmodule Day04 do
   def field_valid?("hcl:#" <> color), do: Regex.match?(~r/^[0-9a-f]{6}$/, color)
 
   def field_valid?("ecl:" <> color) do
-    Enum.any?(["amb", "blu", "brn", "gry", "grn", "hzl", "oth"], &String.equivalent?(&1, color))
+    Enum.member?(["amb", "blu", "brn", "gry", "grn", "hzl", "oth"], color)
   end
 
   def field_valid?("pid:" <> id), do: Regex.match?(~r/^\d{9}$/, id)

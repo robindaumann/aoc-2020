@@ -14,7 +14,7 @@ defmodule Day04Test do
 
   test "part2 input" do
     f = Input.path()
-    assert Day04.part2(f) == 260
+    assert Day04.part2(f) == 153
   end
 
   test "byr field" do
