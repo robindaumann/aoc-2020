@@ -19,6 +19,6 @@ defmodule Day03Test do
 
   test "part2 input" do
     f = Input.path()
-    assert Day03.part2(f) == 209
+    assert Day03.part2(f) == 1574890240
   end
 end
