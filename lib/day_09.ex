@@ -13,7 +13,7 @@ defmodule Day09 do
 
     input
     |> find_range(sum, 0, [])
-    |> first_plus_last()
+    |> min_plus_max()
   end
 
   def find_range(_, sum, cur_sum, res) when cur_sum == sum do
@@ -43,7 +43,7 @@ defmodule Day09 do
 
   def valid?([], _sum), do: false
 
-  def first_plus_last(l) do
+  def min_plus_max(l) do
     Enum.min_max(l) |> Tuple.to_list() |> Enum.sum()
   end
 
