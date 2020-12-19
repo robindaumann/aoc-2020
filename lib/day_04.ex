@@ -16,24 +16,7 @@ defmodule Day04 do
   end
 
   def valid?(passport) do
-    req_fields = [
-      #  (Birth Year)
-      "byr:",
-      # (Issue Year)
-      "iyr:",
-      # (Expiration Year)
-      "eyr:",
-      # (Height)
-      "hgt:",
-      # (Hair Color)
-      "hcl:",
-      # (Eye Color)
-      "ecl:",
-      # (Passport ID)
-      "pid:"
-    ]
-
-    Enum.all?(req_fields, &String.contains?(passport, &1))
+    Enum.all?(~w(byr: iyr: eyr: hgt: hcl: ecl: pid:), &String.contains?(passport, &1))
   end
 
   def valid_strict?(passport) do
@@ -41,7 +24,6 @@ defmodule Day04 do
   end
 
   def field_valid?("byr:" <> year), do: between?(year, 1920, 2002)
-
 
   def field_valid?("iyr:" <> year), do: between?(year, 2010, 2020)
 
@@ -60,7 +42,7 @@ defmodule Day04 do
   def field_valid?("hcl:#" <> color), do: Regex.match?(~r/^[0-9a-f]{6}$/, color)
 
   def field_valid?("ecl:" <> color) do
-    Enum.member?(["amb", "blu", "brn", "gry", "grn", "hzl", "oth"], color)
+    Enum.member?(~w(amb blu brn gry grn hzl oth), color)
   end
 
   def field_valid?("pid:" <> id), do: Regex.match?(~r/^\d{9}$/, id)
