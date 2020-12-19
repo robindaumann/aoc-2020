@@ -22,7 +22,8 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 aoc2020-*.tar
 
-
 # Temporary files for e.g. tests
 /tmp
 
+# cookie for downloading aoc input
+cookie.txt

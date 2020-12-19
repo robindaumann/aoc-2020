@@ -1,0 +1,9 @@
+defmodule Day<%= day %> do
+  def part1(path) do
+    raise "not_implemented: #{path}"
+  end
+
+  def part2(path) do
+    raise "not_implemented #{path}"
+  end
+end
