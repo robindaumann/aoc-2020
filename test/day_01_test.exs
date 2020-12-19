@@ -2,23 +2,23 @@ defmodule Day01Test do
   use ExUnit.Case, async: true
   require Input
 
-  test "day01 input" do
+  test "part01 input" do
     f = Input.path()
     assert Day01.part1(f) == 440_979
   end
 
-  test "day02 input" do
-    f = Input.path()
-    assert Day01.part2(f) == 82_498_112
-  end
-
-  test "day01 example" do
+  test "part01 example" do
     f = Input.example()
     assert Day01.part1(f) == 514_579
   end
 
-  test "day01 example part 2" do
-    f = "input/day_01_example.txt"
+  test "part2 input" do
+    f = Input.path()
+    assert Day01.part2(f) == 82_498_112
+  end
+
+  test "part2 example" do
+    f = Input.example()
     assert Day01.part2(f) == 241_861_950
   end
 
