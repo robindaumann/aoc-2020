@@ -1,13 +1,13 @@
 defmodule Day09 do
   def part1(path, preamble_len) do
     path
-    |> parse()
+    |> Input.read_numbers()
     |> Enum.split(preamble_len)
     |> find_invalid()
   end
 
   def part2(path, preamble_len) do
-    input = parse(path)
+    input = Input.read_numbers(path)
 
     sum = Enum.split(input, preamble_len) |> find_invalid()
 
@@ -45,12 +45,5 @@ defmodule Day09 do
 
   def min_plus_max(l) do
     Enum.min_max(l) |> Tuple.to_list() |> Enum.sum()
-  end
-
-  def parse(path) do
-    path
-    |> File.stream!()
-    |> Enum.map(&String.trim_trailing/1)
-    |> Enum.map(&String.to_integer/1)
   end
 end

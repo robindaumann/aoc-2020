@@ -22,4 +22,11 @@ defmodule Input do
 
     content
   end
+
+  def read_numbers(path) do
+    path
+    |> File.stream!()
+    |> Enum.map(&String.trim_trailing/1)
+    |> Enum.map(&String.to_integer/1)
+  end
 end

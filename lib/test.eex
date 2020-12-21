@@ -4,21 +4,21 @@ defmodule Day<%= day %>Test do
 
   test "part1 input" do
     f = Input.path()
-    assert Day<%= day %>.part1(f) == nil
+    assert Day<%= day %>.part1(f)
   end
 
   test "part1 example" do
     f = Input.example()
-    assert Day<%= day %>.part1(f) == nil
+    assert Day<%= day %>.part1(f)
   end
 
   test "part2 input" do
     f = Input.path()
-    assert Day<%= day %>.part2(f) == nil
+    assert Day<%= day %>.part2(f)
   end
 
   test "part2 example" do
     f = Input.example()
-    assert Day<%= day %>.part2(f) == nil
+    assert Day<%= day %>.part2(f)
   end
 end
