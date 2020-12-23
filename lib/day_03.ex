@@ -1,12 +1,12 @@
 defmodule Day03 do
   def part1(path) do
-    {points, width, height} = Input.read_grid(path, &cell_filter/1)
+    %{grid: points, width: width, height: height} = Input.read_grid(path, &cell_filter/1)
 
     trace(points, {0, 0}, {3, 1}, width, height)
   end
 
   def part2(path) do
-    {points, width, height} = Input.read_grid(path, &cell_filter/1)
+    %{grid: points, width: width, height: height} = Input.read_grid(path, &cell_filter/1)
 
     slopes = [{1, 1}, {3, 1}, {5, 1}, {7, 1}, {1, 2}]
 

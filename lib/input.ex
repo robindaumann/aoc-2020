@@ -38,8 +38,8 @@ defmodule Input do
 
   @type coord() :: {non_neg_integer(), non_neg_integer()}
   @type cell() :: atom()
-  @spec read_grid(Path.t(), (String.t() -> boolean())) ::
-          {%{coord() => cell()}, non_neg_integer(), non_neg_integer()}
+  @type grid() :: %{grid: %{coord() => cell()}, width: non_neg_integer(), height: non_neg_integer()}
+  @spec read_grid(Path.t(), (String.t() -> boolean())) :: grid()
   def read_grid(path, cell_filter \\ &always/1) do
     rows =
       path
@@ -55,7 +55,7 @@ defmodule Input do
       |> Enum.flat_map(&parseRow(&1, cell_filter))
       |> Map.new()
 
-    {grid, width, height}
+    %{grid: grid, width: width, height: height}
   end
 
   defp parseRow({row, y}, cell_filter) do
