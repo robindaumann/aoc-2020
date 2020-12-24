@@ -1,42 +1,31 @@
 defmodule Day11 do
   def part1(path) do
-    path
-    |> parse()
-    |> simulate()
-    |> Enum.count(fn {_, seat} -> seat == :"#" end)
+    solve(path, &step/2)
   end
 
   def part2(path) do
-    raise "not_implemented #{path}"
+    solve(path, &step_see/2)
   end
 
-  def show(seats) do
-    {{{min_x, _}, _}, {{max_x, _}, _}} = Enum.min_max_by(seats, fn {{x, _y}, _} -> x end)
-    {{{_, min_y}, _}, {{_, max_y}, _}} = Enum.min_max_by(seats, fn {{_x, y}, _} -> y end)
-
-    Enum.each(min_y..max_y, fn y ->
-      Enum.each(min_x..max_x, fn x ->
-        IO.write(Map.get(seats, {x, y}, "."))
-      end)
-
-      IO.puts("")
-    end)
-
-    IO.puts("")
-    seats
+  def solve(path, step) do
+    path
+    |> Input.read_grid(fn cell -> cell != "." end)
+    |> simulate(step)
+    |> Enum.count(fn {_, seat} -> seat == :"#" end)
   end
 
-  def simulate(seats) do
-    next = Enum.map(seats, &step(seats, &1)) |> Enum.into(%{})
+  def simulate(%{grid: grid} = seats, step) do
+    next = Enum.map(grid, fn seat -> step.(seats, seat) end) |> Map.new()
 
-    if Map.equal?(seats, next) do
+    if Map.equal?(grid, next) do
       next
     else
-      simulate(next)
+      simulate(%{seats | grid: next}, step)
     end
   end
 
-  def step(seats, {pos, :L} = seat) do
+  # part 1
+  def step(%{grid: seats}, {pos, :L} = seat) do
     any_neighbour = Enum.any?(directions(), fn direction -> occupied?(seats, pos, direction) end)
 
     if any_neighbour do
@@ -46,7 +35,7 @@ defmodule Day11 do
     end
   end
 
-  def step(seats, {pos, :"#"} = seat) do
+  def step(%{grid: seats}, {pos, :"#"} = seat) do
     neighbours = Enum.count(directions(), fn direction -> occupied?(seats, pos, direction) end)
 
     if neighbours < 4 do
@@ -56,26 +45,67 @@ defmodule Day11 do
     end
   end
 
-  def directions(), do: for(dx <- -1..1, dy <- -1..1, dx != 0 or dy != 0, do: {dx, dy})
+  # part 2
+  def step_see(seats, {pos, :L} = seat) do
+    any_neighbour =
+      Enum.any?(directions(), fn direction -> see_occupied?(seats, pos, direction) end)
+
+    if any_neighbour do
+      seat
+    else
+      {pos, :"#"}
+    end
+  end
+
+  def step_see(seats, {pos, :"#"} = seat) do
+    neighbours =
+      Enum.count(directions(), fn direction -> see_occupied?(seats, pos, direction) end)
+
+    if neighbours < 5 do
+      seat
+    else
+      {pos, :L}
+    end
+  end
+
+  def directions() do
+    for dx <- -1..1, dy <- -1..1, dx != 0 or dy != 0, do: {dx, dy}
+  end
 
   def occupied?(seats, {x, y}, {dx, dy}) do
     Map.get(seats, {x + dx, y + dy}) == :"#"
   end
 
-  def parse(path) do
-    path
-    |> File.stream!()
-    |> Enum.map(&String.trim_trailing/1)
-    |> Enum.with_index()
-    |> Enum.flat_map(fn {row, y} -> parseRow(row, y) end)
-    |> Enum.into(%{})
+  def see_occupied?(
+        %{grid: grid, width: width, height: height} = seats,
+        {x, y},
+        {dx, dy} = dir
+      )
+      when 0 <= x and x < width and 0 <= y and y < height do
+    next_pos = {x + dx, y + dy}
+
+    case Map.fetch(grid, next_pos) do
+      {:ok, :"#"} -> true
+      {:ok, :L} -> false
+      :error -> see_occupied?(seats, next_pos, dir)
+    end
   end
 
-  def parseRow(row, y) do
-    row
-    |> String.graphemes()
-    |> Enum.with_index()
-    |> Enum.filter(fn {cell, _x} -> cell != "." end)
-    |> Enum.map(fn {cell, x} -> {{x, y}, String.to_atom(cell)} end)
-  end
+  def see_occupied?(_, _, _), do: false
+
+  # defp show(seats) do
+  #   {min_x, max_x} = Enum.map(seats, fn {{x, _y}, _} -> x end) |> Enum.min_max()
+  #   {min_y, max_y} = Enum.map(seats, fn {{_x, y}, _} -> y end) |> Enum.min_max()
+
+  #   Enum.each(min_y..max_y, fn y ->
+  #     Enum.each(min_x..max_x, fn x ->
+  #       IO.write(Map.get(seats, {x, y}, "."))
+  #     end)
+
+  #     IO.puts("")
+  #   end)
+
+  #   IO.puts("")
+  #   seats
+  # end
 end
