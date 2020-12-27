@@ -12,7 +12,7 @@ defmodule Day03 do
 
     slopes
     |> Enum.map(&trace(points, {0, 0}, &1, width, height))
-    |> Enum.reduce(&*/2)
+    |> Math.product()
   end
 
   def cell_filter(cell), do: cell == "#"
