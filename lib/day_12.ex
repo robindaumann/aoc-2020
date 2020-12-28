@@ -59,8 +59,8 @@ defmodule Day12 do
   defp manhattan({x, y}, {x0, y0}), do: abs(x - x0) + abs(y - y0)
 
   defp rotate({x, y}, angle) do
-    sin = round(Math.sin_deg(angle))
-    cos = round(Math.cos_deg(angle))
+    sin = Math.sin_deg(angle)
+    cos = Math.cos_deg(angle)
     {x * cos - y * sin, x * sin + y * cos}
   end
 end
