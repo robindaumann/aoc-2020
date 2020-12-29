@@ -1,7 +1,14 @@
 defmodule Math do
+  @doc """
+  Calculates x to the nth power and trucates to integer
+  """
   @spec pow(integer, integer) :: integer
-  def pow(x, n) do
+  def pow(x, n) when is_integer(x) and is_integer(n) do
     trunc(:math.pow(x, n))
+  end
+
+  def pow(x, n) do
+    raise "pow supports currently integers only got: x=#{x}, n=#{n}"
   end
 
   @spec product([number]) :: number
