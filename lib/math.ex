@@ -1,5 +1,44 @@
 defmodule Math do
   @doc """
+  Calculates the cartesian product of the given enumerables.
+
+  ## Options
+
+    * `:repeat` - when given repeats the the enum the given times
+
+  ## Examples
+
+    iex> Math.cartesian([[:a, :b], [:c]])
+    [[:a, :c], [:b, :c]]
+
+    iex> Math.cartesian([0..1], repeat: 2)
+    [[0, 0], [1, 0], [0, 1], [1, 1]]
+
+  """
+  @spec cartesian([Enumerable.t()], [term()]) :: list()
+  def cartesian(enums, opts \\ [])
+  def cartesian([], _opts), do: []
+
+  def cartesian(enums, opts) when is_list(opts) do
+    repeat = Keyword.get(opts, :repeat, 1)
+
+    enums
+    |> Enum.reverse()
+    |> duplicate_flat(repeat)
+    |> _cartesian([])
+  end
+
+  defp _cartesian([], elems), do: [elems]
+
+  defp _cartesian([h | tail], elems) do
+    Enum.flat_map(h, fn x -> _cartesian(tail, [x | elems]) end)
+  end
+
+  defp duplicate_flat(list, count) do
+    Stream.cycle(list) |> Enum.take(length(list) * count)
+  end
+
+  @doc """
   Calculates x to the nth power and trucates to integer
   """
   @spec pow(integer, integer) :: integer
@@ -8,7 +47,7 @@ defmodule Math do
   end
 
   def pow(x, n) do
-    raise "pow supports currently integers only got: x=#{x}, n=#{n}"
+    raise "pow currently supports integers only got: x=#{x}, n=#{n}"
   end
 
   @spec product([number]) :: number
