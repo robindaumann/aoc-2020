@@ -27,10 +27,9 @@ defmodule Day02 do
   end
 
   def char_at?(password, char, pos1, pos2) do
-    xor(String.at(password, pos1-1) == char, String.at(password, pos2-1) == char)
-  end
+    at_pos1? = String.at(password, pos1-1) == char
+    at_pos2? = String.at(password, pos2-1) == char
 
-  def xor(a, b) do
-    (a or b) and not(a and b)
+    at_pos1? != at_pos2?
   end
 end
