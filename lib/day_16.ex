@@ -7,10 +7,6 @@ defmodule Day16 do
     |> Enum.sum()
   end
 
-  def part2(_path) do
-    raise "not_implemented"
-  end
-
   def parse(path) do
       path
       |> File.read!()

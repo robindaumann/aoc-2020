@@ -39,9 +39,9 @@ defmodule Day10 do
     %{1 => two, 2 => three, 3 => one + two + three, :prev => adapter}
   end
 
-  def traverse(adapter, %{2 => two, 3 => three, :prev => prev}) when adapter - prev == 2 do
-    %{1 => three, 2 => 0, 3 => two + three, :prev => adapter}
-  end
+  # def traverse(adapter, %{2 => two, 3 => three, :prev => prev}) when adapter - prev == 2 do
+  #   %{1 => three, 2 => 0, 3 => two + three, :prev => adapter}
+  # end
 
   def traverse(adapter, %{3 => three, :prev => prev}) when adapter - prev == 3 do
     %{1 => 0, 2 => 0, 3 => three, :prev => adapter}
