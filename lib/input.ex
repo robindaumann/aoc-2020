@@ -15,19 +15,6 @@ defmodule Input do
     end
   end
 
-  @doc """
-    Prints out a description and a content unless we are in CI
-  """
-  @spec show(String.t(), String.t()) :: String.t()
-  def show(desc, content) do
-    unless System.get_env("GITHUB_ACTION") do
-      IO.puts("\n#{desc}")
-      IO.write(content)
-    end
-
-    content
-  end
-
   @spec read_numbers(Path.t()) :: [integer()]
   def read_numbers(path) do
     path
