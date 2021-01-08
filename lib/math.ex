@@ -40,6 +40,12 @@ defmodule Math do
 
   @doc """
   Calculates x to the nth power and trucates to integer
+
+  ## Examples
+
+    iex> Math.pow(2, 5)
+    32
+
   """
   @spec pow(integer, integer) :: integer
   def pow(x, n) when is_integer(x) and is_integer(n) do
@@ -47,9 +53,21 @@ defmodule Math do
   end
 
   def pow(x, n) do
-    raise "pow currently supports integers only got: x=#{x}, n=#{n}"
+    raise ArithmeticError, message: "pow currently supports integers only got: x=#{x}, n=#{n}"
   end
 
+  @doc """
+  Calculates the product of the given numbers
+
+  ## Examples
+
+    iex> Math.product([1, 2, 3])
+    6
+
+    iex> Math.product([5, -6])
+    -30
+
+  """
   @spec product([number]) :: number
   def product(elements) do
     Enum.reduce(elements, &*/2)
@@ -63,14 +81,19 @@ defmodule Math do
     ## Examples
     iex>Math.sin_deg(0)
     0.0
+
     iex>Math.sin_deg(90)
     1.0
+
     iex>Math.sin_deg(180)
     0.0
+
     iex>Math.sin_deg(270)
     -1.0
+
     iex>Math.sin_deg(360)
     0.0
+
   """
   @spec sin_deg(number) :: float
   def sin_deg(angle) do
@@ -85,14 +108,19 @@ defmodule Math do
   ## Examples
     iex>Math.cos_deg(0)
     1.0
+
     iex>Math.cos_deg(90)
     0.0
+
     iex>Math.cos_deg(180)
     -1.0
+
     iex>Math.cos_deg(270)
     0.0
+
     iex>Math.cos_deg(360)
     1.0
+
   """
   @spec cos_deg(number) :: float
   def cos_deg(angle) do
@@ -104,11 +132,24 @@ defmodule Math do
     :math.pi() * degrees / 180.0
   end
 
+  @doc """
+  Calculates the [modular multiplicative inverse](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse).
+
+  Expects the arguments to be coprime.
+
+  ## Examples
+    iex>Math.mod_inv(3, 5)
+    2
+
+    iex>Math.mod_inv(13, 7)
+    6
+
+  """
   @spec mod_inv(number, integer) :: integer
   def mod_inv(a, m) do
     case egcd(a, m) do
       {1, s, _t} -> rem(s + m, m)
-      _ -> raise "#{a} and #{m} are not coprime!"
+      _ -> raise ArithmeticError, message: "#{a} and #{m} are not coprime!"
     end
   end
 
