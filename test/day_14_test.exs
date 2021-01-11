@@ -18,7 +18,7 @@ defmodule Day14Test do
   end
 
   test "part2 example" do
-    f = Input.path("_example2.txt")
+    f = Input.example(2)
     assert Day14.part2(f) == 208
   end
 

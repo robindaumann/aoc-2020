@@ -9,9 +9,9 @@ defmodule Input do
     end
   end
 
-  defmacro example() do
+  defmacro example(n \\ "") do
     quote do
-      Input.path("_example.txt")
+      Input.path("_example#{unquote(n)}.txt")
     end
   end
 

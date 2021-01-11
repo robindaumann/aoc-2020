@@ -13,7 +13,7 @@ defmodule Day10Test do
   end
 
   test "part1 example2" do
-    f = Input.path("_example2.txt")
+    f = Input.example(2)
     assert Day10.part1(f) == 220
   end
 
@@ -28,7 +28,7 @@ defmodule Day10Test do
   end
 
   test "part2 example2" do
-    f = Input.path("_example2.txt")
+    f = Input.example(2)
     assert Day10.part2(f) == 19208
   end
 end

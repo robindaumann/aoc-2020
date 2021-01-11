@@ -23,7 +23,7 @@ defmodule Day07Test do
   end
 
   test "part2 example2" do
-    f = Input.path("_example2.txt")
+    f = Input.example(2)
     assert Day07.part2(f) == 126
   end
 end
