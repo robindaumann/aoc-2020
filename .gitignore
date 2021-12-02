@@ -27,3 +27,6 @@ aoc2020-*.tar
 
 # cookie for downloading aoc input
 cookie.txt
+
+# aoc inputs
+/input/
